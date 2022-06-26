@@ -1,8 +1,5 @@
-package config_parser
-
-import "io"
+package parser
 
 type Parser interface {
-	Reader() io.Reader
-	Parser() interface{}
+	Parse(dto interface{}) error
 }
