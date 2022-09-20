@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/lapuda/config_parser/parser"
-	"github.com/lapuda/config_parser/types"
 	"os"
 )
 
@@ -19,8 +18,7 @@ func main() {
 		println(error.Error())
 		return
 	}
-	jsonfile := types.NewJsonConfigFile(fileReader)
-	parser1 := parser.CreateConfigParser(jsonfile)
+	parser1 := parser.NewJsonParser(fileReader)
 	error = parser1.Parse(&testDto)
 	if error != nil {
 		println(error.Error())
@@ -29,8 +27,7 @@ func main() {
 	fmt.Println(testDto)
 
 	stringReader := bytes.NewBuffer([]byte("{\"name\":\"test2\",\"age\":29}"))
-	jsonfile2 := types.NewJsonConfigFile(stringReader)
-	parser2 := parser.CreateConfigParser(jsonfile2)
+	parser2 := parser.NewJsonParser(stringReader)
 	error = parser2.Parse(&testDto)
 	if error != nil {
 		println(error.Error())
