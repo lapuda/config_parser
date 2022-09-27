@@ -2,6 +2,9 @@
 a simple config parser!
 ## useage
 ```
+  go get github.com/lapuda/config_parser
+```
+```
 package main
 
 import (
