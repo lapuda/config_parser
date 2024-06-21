@@ -7,6 +7,7 @@ import (
 
 type JsonParser struct {
 	reader io.Reader
+	writer io.Writer
 }
 
 func (jp JsonParser) Parse(dto interface{}) error {
@@ -14,6 +15,15 @@ func (jp JsonParser) Parse(dto interface{}) error {
 	return decoder.Decode(dto)
 }
 
-func NewJsonConfigFile(reader io.Reader) *JsonParser {
-	return &JsonParser{reader: reader}
+func (jp JsonParser) PrintDefault(dto interface{}) error {
+	data, err := json.Marshal(dto)
+	if err != nil {
+		return err
+	}
+	_, err = jp.writer.Write(data)
+	return err
+}
+
+func NewJsonConfigFile(reader io.Reader, writer io.Writer) *JsonParser {
+	return &JsonParser{reader: reader, writer: writer}
 }
