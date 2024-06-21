@@ -16,7 +16,7 @@ func (jp JsonParser) Parse(dto interface{}) error {
 }
 
 func (jp JsonParser) PrintDefault(dto interface{}) error {
-	data, err := json.Marshal(dto)
+	data, err := json.MarshalIndent(dto, "", "    ")
 	if err != nil {
 		return err
 	}
