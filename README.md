@@ -20,24 +20,16 @@ var testDto struct {
 }
 
 func main() {
-	fileReader, error := os.Open("./examples/base_config.json")
-	if error != nil {
-		println(error.Error())
-		return
-	}
-	parser1 := parser.NewJsonParser(fileReader)
-	error = parser1.Parse(&testDto)
-	if error != nil {
-		println(error.Error())
+	err := parser.ParseJsonFile("./examples/base_config.json", &testDto)
+	if err != nil {
+		println(err.Error())
 		return
 	}
 	fmt.Println(testDto)
 
-	stringReader := bytes.NewBuffer([]byte("{\"name\":\"test2\",\"age\":29}"))
-	parser2 := parser.NewJsonParser(stringReader)
-	error = parser2.Parse(&testDto)
-	if error != nil {
-		println(error.Error())
+	err = parser.ParseJsonString([]byte("{\"name\":\"test2\",\"age\":29}"), &testDto)
+	if err != nil {
+		println(err.Error())
 		return
 	}
 	fmt.Println(testDto)
